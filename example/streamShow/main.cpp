@@ -170,21 +170,22 @@ int pclDemo()
                     const cv::Mat &infrared = pPclFrame->getMat(1);
                     const cv::Mat &color = pPclFrame->getMat(2);
 
+                    std::vector<cv::Mat> channels(3);
+                    cv::split(xyz, channels);
+                    const cv::Mat &depth = channels[2];
+                    cv::Mat u16Depth;
+                    depth.convertTo(u16Depth, CV_16UC1, 65535.0 / DistRange);
+
                     cv::imshow("xyz", xyz);
                     cv::imshow("infrared", infrared);
                     cv::imshow("color", color);
+                    cv::imshow("depth", depth);
+
                     if (saveReq)
                     {
                         saveReq = false;
                         GenTL::PDBufferSave(*pPclFrame, nullptr);
-
-                        std::vector<cv::Mat> channels(3);
-                        cv::split(xyz, channels);
-                        const cv::Mat &depth = channels[2];
-                        cv::Mat u16Depth;
-                        depth.convertTo(u16Depth, CV_16UC1, 65535.0 / DistRange);
                         cv::imwrite(stringFormat("depth-%d.png", count), u16Depth);
-
                         printf("saved  \n");
                         count++;
                     }

@@ -7,6 +7,7 @@ Windows10 x86-64bit system
 * extract camdriver\FTD3XXDriver_WHQLCertified_v1.3.0.4_Installer.exe.zip
 and then execute the install program
 * double click `install.bat`
+* add `%DYVCAM_GENTL64_PATH%` to environment variable `path`  
 ###  What SDK includes:
 
 1. **okulo_viewer** *(SDKbin/okulo_viewer)* : show the origin camera stream & point cloud & control the stream;
